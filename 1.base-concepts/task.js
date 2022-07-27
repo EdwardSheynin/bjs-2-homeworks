@@ -2,15 +2,13 @@
 
 function solveEquation(a, b, c) {
   let arr;
-  // код для задачи №1 писать здесь
-
   let d = b ** 2 - 4 * a * c;
   let rootOne;
   let rootTwo;
   if (d > 0) {
     rootOne = (-b + Math.sqrt(d)) / (2 * a);
     rootTwo = (-b - Math.sqrt(d)) / (2 * a);
-    arr  [rootOne, rootTwo];
+    arr = [rootOne, rootTwo];
   } else if (d === 0) {
     rootOne = -b / (2 * a);
     arr = [rootOne];
@@ -22,9 +20,34 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalAmount;
+  if (isNumeric(percent) && percent !== 0) {
+    percent = +percent;
+  } else {
+    return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`;
+  }
 
-  // код для задачи №2 писать здесь
+  if (isNumeric(contribution)) {
+    contribution = +contribution;
+  } else {
+    return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`;
+  }
+  
+  if (isNumeric(amount)) {
+    amount = +amount;
+  } else {
+    return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
+  }
 
-  return totalAmount;
+  let totalAmount = countDate * monthPayment;
+  let creditBody = amount - contribution;
+  let currentDate = new Date();
+  let countDate = (date.getMonth() - currentDate.getMonth()) + (12 * (date.getFullYear() - currentDate.getFullYear()));
+  let monthPercent = (percent / 100) / 12;
+  let monthPayment = creditBody * (monthPercent + (monthPercent / (((1 + monthPercent) ** countDate) - 1)));
+
+  return Number(totalAmount.toFixed(2));
+};
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
