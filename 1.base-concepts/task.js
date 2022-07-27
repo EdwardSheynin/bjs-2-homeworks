@@ -38,12 +38,12 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`;
   }
 
-  let totalAmount = countDate * monthPayment;
   let creditBody = amount - contribution;
-  let currentDate = new Date();
+  let currentDate = new Date;
   let countDate = (date.getMonth() - currentDate.getMonth()) + (12 * (date.getFullYear() - currentDate.getFullYear()));
   let monthPercent = (percent / 100) / 12;
   let monthPayment = creditBody * (monthPercent + (monthPercent / (((1 + monthPercent) ** countDate) - 1)));
+  let totalAmount = countDate * monthPayment;
 
   return Number(totalAmount.toFixed(2));
 };
